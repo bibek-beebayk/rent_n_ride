@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Ads Archive</h1>
+
+<table border="1px">
+    <tr>
+
+        <th>Title</th>
+        <th>Available From</th>
+        <th>Available Till</th>
+        <th>Asking Price</th>
+        <th>Location</th>
+        <th></th>
+        <th></th>
+        <th></th>
+
+    </tr>
+    {% for ad in ads %}
+    <tr>
+    
+        <td>{{ad.ad_title}}</td>
+        <td>{{ad.available_from}}</td>
+        <td>{{ad.available_till}}</td>
+        <td>{{ad.asking_price}}</td>
+        <td>{{ad.location}}</td>
+        <td><a href="{% url 'ad-details' ad.id %}">View</a></td>
+        <td><a href="{% url 'update-ad' ad.id %}">Edit</a></td>
+        <td><a href="{% url 'delete-ad' ad.id %}">Delete</a></td>
+        
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
