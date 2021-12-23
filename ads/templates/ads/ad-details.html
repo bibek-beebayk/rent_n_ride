@@ -1,7 +1,9 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
 
 <h1>Single Ad Details</h1>
 <h2>{{ad.ad_title}}</h2>
+<img src="{{ad.featured_image.url}}" alt="image">
 {% endblock content %}

@@ -4,4 +4,34 @@
 
 <h1>Requests Archive</h1>
 
+<table border="1px">
+    <tr>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Description</th>
+        <th>Offered Price</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    
+    {% for request in requests %}
+
+    <tr>
+        <td>{{request.title}}</td>
+        <td>{{request.location}}</td>
+        <td>{{request.start_date}}</td>
+        <td>{{request.end_date}}</td>
+        <td>{{request.description|slice:'30'}}...</td>
+        <td>{{request.offered_price}}</td>
+        <td><a href="{% url 'request-details' request.id %}">View</a></td>
+        <td><a href="{% url 'update-request' request.id %}">Edit</a></td>
+        <td><a href="{% url 'delete-request' request.id %}">Delete</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
+
 {% endblock content %}

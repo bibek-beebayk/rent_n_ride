@@ -1,12 +1,13 @@
 from django.db import models
 import uuid
+from vehicles.models import Vehicle
 
 # Create your models here.
 
 
 class Ad(models.Model):
     # ad_owner =
-    # vehicle =
+    vehicle = models.OneToOneField(Vehicle, on_delete=models.CASCADE, null=True)
     ad_title = models.CharField(max_length=200, null=True)
     available_from = models.DateField(null=True)
     available_till = models.DateField(null=True)

@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h2>Vehicles Archive</h2>
+
+<table border="1px">
+    <tr>
+        <th>Model</th>
+        <th>Make</th>
+        <th>Type</th>
+        <th></th>
+        <th></th>
+        <th></th>
+
+    </tr>
+
+    {% for vehicle in vehicles %}
+    <tr>
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.make}}</td>
+        <td>
+            {%if vehicle.type == 'M'%}
+            Motorbike
+            {% elif vehicle.type == 'C'%}
+            Car
+            {% elif vehicle.type == 'B'%}
+            Bicycle
+            {% elif vehicle.type == 'O'%}
+            Other
+            {% endif %}
+        </td>
+        <td><a href="{% url 'vehicle-details' vehicle.id %}">View</a></td>
+        <td><a href="{% url 'update-vehicle' vehicle.id %}">Edit</a></td>
+        <td><a href="{% url 'delete-vehicle' vehicle.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
