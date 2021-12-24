@@ -1,11 +1,46 @@
+{% load static %}
+
+<header>
+	<div class="container">
+		<div class="row">
+
+			<div class="logo col-md-3">
+				<a href="{% url 'index' %}">
+					<img src="{% static 'images/logo.png' %}" class="img-responsive">
+				</a>
+
+			</div>
+
+			<div class="nav col-md-9">
+				<ul>
+					<li><a href="#">Contact us</a></li>
+					<li><a href="#">Verification</a></li>
+					<li><a href="#">Requests</a></li>
+					<li><a href="#">Ads</a></li>
+					<li><a href="#">DashBoard</a></li>
+					<li>
+						<form action="#">
+							<input type="search" placeholder="Search  for vehicle.....">
+							<button type="submit"><i class="fa fa-search" style="border:none;"></i></button>
+						</form>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+	</div>
+
+</header>
+
 <h3><i>Navbar</i></h3>
 <ul>
-    <li><a href="{% url 'create-ad' %}">New Ad</a></li>
-    <li><a href="{% url 'create-request' %}">New Request</a></li>
-    <li><a href="{% url 'create-vehicle' %}">New Vehicle</a></li>
-    <li><a href="{% url 'requests-archive' %}">Browse Requests</a></li>
-    <li><a href="{% url 'ads-archive' %}">Browse Ads</a></li>
-    <li><a href="{% url 'vehicles-archive' %}">Browse Vehicles</a></li>
+	<li><a href="{% url 'create-ad' %}">New Ad</a></li>
+	<li><a href="{% url 'create-request' %}">New Request</a></li>
+	<li><a href="{% url 'requests-archive' %}">Browse Requests</a></li>
+	<li><a href="{% url 'ads-archive' %}">Browse Ads</a></li>
+	<li><a href="{% url 'profiles' %}">Browse Users</a></li>
 
 </ul>
 <hr>

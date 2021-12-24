@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <h1>Single Profile Page</h1>
+    <h2>{{profile.name}}</h2>
+    {{profile.location}}
+    {{profile.email}}
+    {{profile.username}}
+    <img src="{{ profile.profile_image.url }}" alt="image">
+
+    <div>
+        <h3>Requests By the User</h3>
+        {% for request in profile.request_set.all %}
+        {request.title}
+        {% endfor %}
+    </div>
+
+{% endblock content %}

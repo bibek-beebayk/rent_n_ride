@@ -2,6 +2,7 @@ from django import forms
 from django.shortcuts import render, redirect
 from .forms import AdForm
 from .models import Ad
+from requests.models import Request
 
 # Create your views here.
 
@@ -43,3 +44,9 @@ def deleteAd(request, pk):
         return redirect('ads-archive')
     context = {'object': ad}
     return render(request, 'ads/delete_template.html', context)
+
+def index(request):
+    recent_ads = Ad.objects.all().order_by('-created')[:8]
+    recent_requests = Request.objects.all().order_by('-created')[:8]
+    context = {'recent_ads': recent_ads, 'recent_requests':recent_requests}
+    return render(request, 'ads/index.html', context)

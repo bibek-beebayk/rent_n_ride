@@ -2,7 +2,36 @@
 
 {% block content %}
 
-<h1>Single Request Details</h1>
-<h2>{{request.title}}</h2>
-<p>{{request.description}}</p>
+<h1>Request Details</h1>
+<!-- <h2>{{request.title}}</h2>
+<img src="{{ request.image.url }}" alt="">
+<p>{{request.description}}</p> -->
+
+<div class="container">
+    <div class="row single-product-wrapper">
+        <div class="col-md-4 product-img">
+            <img src="{{request.image.url}}" alt="">
+        </div>
+        <div class="col-md-5 product-description">
+            <h1>{{request.title}}</h1>
+            <h3>Description</h3>
+            <p>
+                {% if request.description %}
+                {{request.description}}</p>
+                {% else %}
+                No description available.
+                {% endif %}
+        </div>
+        <div class="col-md-3 product-detail">
+            <h1> Details</h1><br>
+            
+            <h4>Requested By: <a href="{% url 'user-profile' request.owner.id %}">{{ request.owner }}</a></span></h4>
+            <h4>Lot No:&nbsp<span>67</span></h4>
+            <h4>Model No:&nbsp<span>2018</span></h4>
+            <h4>Price Per day:&nbsp Rs.<span id="pp">{{request.offered_price}}</span></h4>
+           <button type="submit" onclick=""><a href="{% url 'user-profile' request.owner.id %}">Contact Owner</a> </button>
+        </div>
+    </div>
+
+</div>
 {% endblock content %}

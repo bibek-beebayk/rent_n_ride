@@ -1,0 +1,252 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+
+<div class="slider col-md-12">
+    <div id="demo" class="skdslider">
+        <ul>
+
+            <li> <img src="{% static 'images/slider1.png' %}" />
+                <div class="slide-desc">
+                    <h2>Photography</h2>
+                    <p>Photography is the art, application, and practice of creating durable images by recording
+                        light, either electronically by means of an image sensor.</p>
+                </div>
+            </li>
+
+            <li> <img src="{% static 'images/slider2.jpg' %}" />
+                <div class="slide-desc">
+                    <h2>Mirror Photography</h2>
+                    <p>Mirror Photography and events is here to reflect your memories as a mirror. We offer you
+                        event management, photo-video shoot, indoor outdoor shoot. </p>
+                </div>
+            </li>
+            ...
+
+        </ul>
+    </div>
+</div>
+<!-- Slider  -->
+
+<!--Rentor and rentee-->
+
+<div class="user-wrapper">
+    <div class="container">
+        <div class="row">
+
+            <div class="rentor col-md-6">
+                <h1>I am rentor</h1>
+                <br> <br>
+                <h3><a href="{% url 'create-ad' %}">Post an Ad</a></h3>
+                <br><br>
+                <h3><a href="{% url 'requests-archive' %}">Browse Requests</a></h3>
+
+            </div>
+
+            <div class="rentor col-md-6">
+                <h1>I am Rentee</h1>
+                <br> <br>
+                <h3><a href="{% url 'create-request' %}">Post a Request</a></h3>
+                <br><br>
+                <h3><a href="{% url 'ads-archive' %}">Browse Ads</a></h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="wrapper">
+    <h2>Recent Ads</h2>
+
+    {% for ad in recent_ads %}
+    <div class="card">
+        <img src="{{ad.featured_image.url }}" alt="Avatar" style="width:100%; height: 250px;">
+
+        <div class="detail">
+            <name>{{ad.ad_title}}</name>
+            <br>
+            <price>{{ad.asking_price}}</price> per day
+            <br>
+            <button style="margin: 5px; padding: 5px; border-radius: 5px;"><a href="{% url 'ad-details' ad.id %}">View Details</a> </button>
+
+        </div>
+    
+    </div>
+    {% endfor %}
+    <br>
+    <a href="{% url 'ads-archive' %}">See All Ads</a>
+</div>
+
+<div class="wrapper">
+    <h2>Recent Requests</h2>
+
+    {% for request in recent_requests %}
+    <div class="card">
+        <img src="{{request.image.url }}" alt="Avatar" style="width:100%; height: 250px;">
+
+        <div class="detail">
+            <name>{{request.title}}</name>
+            <br>
+            <price>{{request.offered_price}}</price> per day
+            <br>
+            <button style="margin: 5px; padding: 5px; border-radius: 5px;"><a href="{% url 'request-details' request.id %}">View Details</a> </button>
+
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    <a href="{% url 'requests-archive' %}">See All Requests</a>
+</div>
+
+
+<!---->
+
+<!-- <div class="ads-wrapper">
+    <p>Ads near you..</p>
+    <div class="container">
+        <div class="row">
+
+
+            <div class="ad-post col-md-3">
+
+                <img src="{% static 'images/new.png' %}">
+                <div class="detail">
+                    <name>Bullet 350</name>
+                    <br>
+                    <price>1500</price> per day
+                    <br>
+                    <button>Book For Ride</button>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div> -->
+
+<!---->
+
+<!-- <div class="ads-wrapper">
+    <p>Browse requests.</p>
+    <div class="container">
+        <div class=" row new-one">
+
+
+            <div class="ad-post col-md-3">
+
+                <img src="images/new.png">
+                <div class="detail">
+                    <name>Bullet 350</name>
+                    <br>
+                    <price>1500</price> per day
+                    <br>
+                    <button>Book For Ride</button>
+
+                </div>
+            </div>
+
+
+            <div class="ad-post col-md-3">
+
+                <img src="images/new.png">
+                <div class="detail">
+                    <name>Bullet 350</name>
+                    <br>
+                    <price>1500</price> per day
+                    <br>
+                    <button>Book For Ride</button>
+
+                </div>
+            </div>
+
+
+            <div class="ad-post col-md-3">
+
+                <img src="images/new.png">
+                <div class="detail">
+                    <name>Bullet 350</name>
+                    <br>
+                    <price>1500</price> per day
+                    <br>
+                    <button>Book For Ride</button>
+
+                </div>
+            </div>
+
+            <div class="ad-post col-md-3">
+
+                <img src="images/new.png">
+                <div class="detail">
+                    <name>Bullet 350</name>
+                    <br>
+                    <price>1500</price> per day
+                    <br>
+                    <button>Book For Ride</button>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</div> -->
+
+
+
+
+
+
+
+
+<div class="workout">
+    <h2></h2>
+</div>
+
+
+
+
+
+
+
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript" src="{% static 'js/skdslider.js' %}"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('#demo').skdslider({ 'delay': 5000, 'fadeSpeed': 2000 });
+    });
+
+
+</script>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+
+
+
+        renderUsers();
+
+
+    };
+</script>
+
+
+{% endblock content %}
