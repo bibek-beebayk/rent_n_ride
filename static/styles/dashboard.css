@@ -1,0 +1,116 @@
+.menu_bar{
+    background-color: #00003e;
+    float: left;
+    color: #fff;
+    height: 550px;
+    align-items: center;
+    justify-content: center;
+}
+.menu_bar h4{
+   text-align: center;
+   padding: 10px;
+}
+.menu_bar ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.menu_bar ul li{
+    border-bottom: 0.5px solid #2a2a44;
+    padding: 10px;
+    font-size: 20px;
+}
+.menu_bar ul li a:hover{
+    text-decoration: none;
+    color: #fff;
+}
+.profile_bar img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 0.2px solid #c7c0c0;
+    margin: 0px;
+}
+button{
+    background: #17a2b8;
+    color: #fff;
+    float: right;
+    margin: 12px;
+    font-weight: 600;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+ button i{
+    margin: 2px;
+}
+ button:hover{
+    background: #138496;
+
+}
+.profile-image{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-bottom: 1px solid #c7c0c0; */
+}
+.user_detail{
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #efe7e7;
+    float: left;
+    padding: 20px;
+    background: #f3eaea;
+}
+.user_detail ul{
+    margin: 0px;
+    padding: 0px;
+}
+.user_detail ul li{
+    list-style: none;
+    padding: 5px; 
+}
+.user_detail ul li strong{
+    font-weight: 600;
+    margin-right: 10px;
+    font-size: 18px;
+}
+.user_detail ul li span{
+    font-size: 16px;
+}
+.post_title{
+    float: left;
+}
+.content_bar{
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #f3eaea;
+
+}
+.list_table{
+    padding: 10px;
+}
+.list_table table{
+    width:100%;
+    float: left;
+    text-align: center;
+}
+.list_table table i{
+    padding: 10px;
+}
+.list_table table tr td{
+    border-top: solid thin #eee;
+    border-right: solid thin #000;
+    border-left: solid thin #000;  
+    border-bottom: solid thin #000;      
+}
+.list_table table tr th{
+    text-align: center;
+    border-top: solid thin #000;
+    border-right: solid thin #000;
+    border-left: solid thin #000;
+    border-bottom: 0;
+
+}

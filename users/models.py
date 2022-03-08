@@ -1,8 +1,9 @@
+from types import BuiltinMethodType
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
-from django.dispatch import receiver
-from django.db.models.signals import post_delete, post_save
+
+from django.db.models.deletion import SET_NULL
 
 
 # Create your models here.
@@ -13,6 +14,12 @@ class Profile(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
     location = models.CharField(max_length=200, null=True, blank=True)
+    date_of_birth = models.DateField(null=True)
+    gender = models.CharField(max_length=1, choices=[
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other')
+    ], null=True)
     email = models.EmailField(max_length=500, null=True, blank=True)
     phone = models.CharField(max_length=10, null=True, blank=True)
     short_intro = models.CharField(max_length=300, null=True, blank=True)
@@ -32,13 +39,25 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return str(self.username)
 
-# @receiver(post_save, sender= User)
-# def createProfile(sender, instance, created, **kwargs):
-#     if created:
-#         user = instance,
-#         profile = Profile.objects.create(
-#             user=user,
-#             username=user.username,
-#             email=user.email,
-#             name=user.first_name,   
-#         )
+
+class Message(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=SET_NULL, null=True, blank=True)
+    recepient = models.ForeignKey(Profile, on_delete=SET_NULL, null=True, blank=True, related_name='messages')
+    name = models.CharField(max_length=200, null=True, blank=True)
+    name = models.EmailField(max_length=200, null=True, blank=True)
+    subject = models.CharField(max_length=200, null=True, blank=True)
+    body = models.TextField()
+    is_read = models.BooleanField(default=False, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
+
+    def __str__(self) -> str:
+        return self.subject
+
+    class Meta:
+        ordering = ['is_read', '-created']
+
+
+
+

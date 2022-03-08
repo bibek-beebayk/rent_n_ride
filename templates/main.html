@@ -13,10 +13,19 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'styles/skdslider.css' %}">
     <script src="{% static 'js/getUsers.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
 </head>
 
 <body>
     {% include 'navbar.html' %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
 
     {% block content %}
 

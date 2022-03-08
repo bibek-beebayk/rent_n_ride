@@ -43,3 +43,6 @@ class Ad(models.Model):
 
     def __str__(self) -> str:
         return self.ad_title
+
+    class Meta:
+        ordering = ['-created']

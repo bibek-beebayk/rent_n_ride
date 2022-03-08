@@ -1,11 +1,34 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
-<img src="{{ ad.featured_image.url }}" alt="">
+
 <h1>Single Ad Details</h1>
-<h2>{{ad.ad_title}}</h2>
-<p>{{ ad.distance_travelled}}</p>
-<p>{{ ad.registration_number}}</p>
-<p>{{ad.asking_price}}</p>
+<div class="container">
+    <div class="row single-product-wrapper">
+        <div class="col-md-4 product-img">
+            <img src="{{ad.featured_image.url }}" alt="">
+        </div>
+        <div class="col-md-5 product-description">
+            <h1>{{ad.title}}</h1>
+            <h3>Description</h3>
+            <p>
+                {% if ad.description %}
+                {{ad.description}}</p>
+                {% else %}
+                No description available.
+                {% endif %}
+        </div>
+        <div class="col-md-3 product-detail">
+            <h1> Details</h1><br>
+            
+            <h4>Requested By: <a href="{% url 'user-profile' ad.owner.id %}">{{ ad.owner }}</a></span></h4>
+            <h4>Lot No:&nbsp<span>67</span></h4>
+            <h4>Model No:&nbsp<span>2018</span></h4>
+            <h4>Price Per day:&nbsp Rs.<span id="pp">{{ad.asking_price}}</span></h4>
+           <button type="submit" onclick=""><a href="{% url 'user-profile' ad.owner.id %}">Contact Owner</a> </button>
+        </div>
+    </div>
+
+</div>
 
 {% endblock content %}

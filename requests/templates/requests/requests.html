@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<h1>Requests Archive</h1>
-
 <!-- <table border="1px">
     <tr>
         <th>Title</th>
@@ -37,12 +35,20 @@
 <div class="wrapper">
     <h2>All Requests</h2>
 
+    <form action="{% url 'requests-archive' %}" method="get">
+        <input type="text " placeholder="Search Requests" id="" name="search_query", value="{{search_query}}">
+        <input type="submit" name="" id="" class="btn btn--sub btn--lg" value="Search">
+    </form>
+
+
     {% for request in requests %}
     <div class="card">
         <img src="{{request.image.url }}" alt="Avatar" style="width:100%; height: 250px;">
 
         <div class="detail">
             <name>{{request.title}}</name>
+            <br>
+            <location>{{request.location}}</location>
             <br>
             <price>{{request.offered_price}}</price> per day
             <br>
@@ -53,6 +59,31 @@
     {% endfor %}
     <br>
 
+    {% if requests.has_other_pages %}
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                {% if requests.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{requests.previous_page_number}}">&#10094; Prev</a></li>
+                {% endif %}
+                {% for page in paginator.page_range %}
+
+                {% if page == requests.number %}
+                <li class="page-item active"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if requests.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{requests.next_page_number}}">Next &#10095;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock content %}

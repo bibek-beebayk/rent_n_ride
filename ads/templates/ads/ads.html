@@ -1,8 +1,8 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
 
-<h1>Ads Archive</h1>
+<!-- <h1>Ads Archive</h1>
 
 <table border="1px">
     <tr>
@@ -31,6 +31,60 @@
         
     </tr>
     {% endfor %}
-</table>
+</table> -->
+
+<div class="wrapper">
+    <h2>All Ads</h2>
+
+    <form action="{% url 'ads-archive' %}" method="get">
+        <input type="text " placeholder="Search Ads" id="" name="search_query" , value="{{search_query}}">
+        <input type="submit" name="" id="" class="btn btn--sub btn--lg" value="Search">
+    </form>
+
+    {% for ad in ads %}
+    <div class="card">
+        <img src="{{ad.featured_image.url }}" alt="Avatar" style="width:100%; height: 250px;">
+
+        <div class="detail">
+            <name>{{ad.ad_title}}</name>
+            <br>
+            <location>{{ad.location}}</location>
+            <br>
+            <price>{{ad.asking_price}}</price> per day
+            <br>
+            <button style="margin: 5px; padding: 5px; border-radius: 5px;"><a href="{% url 'ad-details' ad.id %}">View
+                    Details</a> </button>
+
+        </div>
+    </div>
+    {% endfor %}
+    <br>
+    {% if ads.has_other_pages %}
+    <div class="pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                {% if ads.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ads.previous_page_number}}">&#10094; Prev</a></li>
+                {% endif %}
+                {% for page in paginator.page_range %}
+
+                {% if page == ads.number %}
+                <li class="page-item active"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                {% if ads.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ads.next_page_number}}">Next &#10095;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+
+</div>
 
 {% endblock content %}

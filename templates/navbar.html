@@ -13,17 +13,23 @@
 
 			<div class="nav col-md-9">
 				<ul>
+					{% if request.user.is_authenticated %}
+					<li><a href="{% url 'logout' %}">Logout</a></li>
+					<li><a href="{% url 'account' %}">My Account</a></li>
+					{% else %}
+					<li><a href="{% url 'login' %}">Login/Signup</a></li>
+					{% endif %}
 					<li><a href="#">Contact us</a></li>
-					<li><a href="#">Verification</a></li>
-					<li><a href="#">Requests</a></li>
-					<li><a href="#">Ads</a></li>
-					<li><a href="#">DashBoard</a></li>
-					<li>
+					<!-- <li><a href="#">Verification</a></li> -->
+					<li><a href="{% url 'requests-archive' %}">Requests</a></li>
+					<li><a href="{% url 'ads-archive' %}">Ads</a></li>
+					
+					<!-- <li>
 						<form action="#">
 							<input type="search" placeholder="Search  for vehicle.....">
 							<button type="submit"><i class="fa fa-search" style="border:none;"></i></button>
 						</form>
-					</li>
+					</li> -->
 
 				</ul>
 
@@ -34,7 +40,7 @@
 
 </header>
 
-<h3><i>Navbar</i></h3>
+<!-- <h3><i>Navbar</i></h3>
 <ul>
 	<li><a href="{% url 'create-ad' %}">New Ad</a></li>
 	<li><a href="{% url 'create-request' %}">New Request</a></li>
@@ -43,4 +49,4 @@
 	<li><a href="{% url 'profiles' %}">Browse Users</a></li>
 
 </ul>
-<hr>
+<hr> -->
