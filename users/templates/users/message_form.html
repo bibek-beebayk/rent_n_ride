@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+  <form action="" method="POST">
+    {% csrf_token %}
+  
+    {% if request.user.is_authenticated == False %}
+    <b>Name: {{form.name}}</b>
+    <br><br>
+    <b>Email: {{form.email}}</b>
+    <br><br>
+    {% endif %}
+    
+    
+    <b>Subject: {{form.subject}}</b>
+    <br><br>
+    <b>Body: {{form.body}}</b>
+    <br><br>
+    <button type="submit" style="float: left;">Submit</button>
+    <br><br>
+  </form>
+</div>
+
+
+{% endblock content %}

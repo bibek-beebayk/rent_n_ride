@@ -1,11 +1,13 @@
+from email import message
+from re import L
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
-from .forms import ProfileForm
+from .models import Message, Profile
+from .forms import ProfileForm, MessageForm
 from requests.models import Request
 
 # Create your views here.
@@ -71,6 +73,7 @@ def userProfile(request, pk):
     context = {'profile': profile}
     return render(request, 'users/user-profile.html', context)
 
+
 @login_required(login_url='login')
 def userAccount(request):
     profile = request.user.profile
@@ -78,6 +81,22 @@ def userAccount(request):
     ads = profile.ad_set.all()
     context = {'profile': profile, 'requests': requests, 'ads': ads}
     return render(request, 'users/account.html', context)
+
+@login_required(login_url='login')
+def userAds(request):
+    profile = request.user.profile
+    requests = profile.request_set.all()
+    ads = profile.ad_set.all()
+    context = {'profile': profile, 'requests': requests, 'ads': ads}
+    return render(request, 'users/user-ads.html', context)
+
+@login_required(login_url='login')
+def userRequests(request):
+    profile = request.user.profile
+    requests = profile.request_set.all()
+    ads = profile.ad_set.all()
+    context = {'profile': profile, 'requests': requests, 'ads': ads}
+    return render(request, 'users/user-requests.html', context)
 
 @login_required(login_url='login')
 def editAccount(request):
@@ -96,5 +115,44 @@ def editAccount(request):
 
 @login_required(login_url='login')
 def inbox(request):
-    context={}
+    profile = request.user.profile
+    messageRequests = profile.messages.all()
+    unreadCount = messageRequests.filter(is_read=False).count()
+    context={'messageRequests': messageRequests, 'unreadCount': unreadCount}
     return render(request, 'users/inbox.html', context)
+
+@login_required(login_url='login')
+def viewMessage(request, pk):  
+    profile = request.user.profile
+    message = profile.messages.get(id=pk)  
+    if message.is_read == False:
+        message.is_read = True
+        message.save()
+    context = {'message': message}
+    return render(request, 'users/message.html', context)
+
+def createMessage(request, pk):
+    form = MessageForm()
+    recipient = Profile.objects.get(id=pk)
+    try:
+        sender = request.user.profile
+    except:
+        sender = None
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = sender
+            message.receiver = recipient
+
+            if sender:
+                message.name = sender.name
+                message.email = sender.email
+
+            message.save()
+
+            messages.success(request, 'Your message was sent successfully!')
+            return redirect('user-profile', pk=recipient.id)
+    context = {'form':form,}
+    return render(request, 'users/message_form.html', context)

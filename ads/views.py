@@ -1,10 +1,12 @@
+from contextlib import redirect_stderr
 from django import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from .forms import AdForm
-from .models import Ad
+from .forms import AdForm, AdReviewForm
+from .models import Ad, AdReview
 from requests.models import Request
 
 # Create your views here.
@@ -36,8 +38,29 @@ def ad(request):
     return render(request, 'ads/ads.html', context)
 
 def ad_details(request, pk):
-    ad = Ad.objects.get(id=pk)
-    context = {'ad': ad}
+    count = 0
+    sum = 0
+    # average = None
+    ad = Ad.objects.get(id=pk)  
+    form = AdReviewForm()
+    for review in ad.adreview_set.all():
+        count+=1
+        sum += int(review.review_rating)
+    if count == 0:
+        average = 0;
+    else:
+        average = str(sum/count)[0:3]
+    if request.method == "POST":
+        form = AdReviewForm(request.POST)
+        review = form.save(commit=False)
+        review.ad = ad
+        review.user = request.user.profile
+        review.save()
+
+        # update ad rating
+        messages.success(request, 'Your review was submitted successfully.')
+        return redirect('ad-details', pk=ad.id) 
+    context = {'ad': ad, 'form': form, 'count':count, 'average':average }
     return render(request, 'ads/ad-details.html', context)
 
 @login_required(login_url='login')
@@ -50,7 +73,7 @@ def createAd(request):
             ad = form.save(commit=False)
             ad.owner = profile
             form.save()
-            return redirect('account')
+            return redirect('user-ads')
     context = {'form': form}
     return render(request, 'ads/ad_form.html', context)
 
@@ -63,7 +86,7 @@ def updateAd(request, pk):
         form = AdForm(request.POST, request.FILES, instance=ad)
         if form.is_valid():
             form.save()
-            return redirect('account')
+            return redirect('user-ads')
     context = {'form': form}
     return render(request, 'ads/ad_form.html', context)
 
@@ -73,7 +96,7 @@ def deleteAd(request, pk):
     ad = profile.ad_set.get(id=pk)
     if request.method == 'POST':
         ad.delete()
-        return redirect('account')
+        return redirect('user-ads')
     context = {'object': ad}
     return render(request, 'ads/delete_template.html', context)
 

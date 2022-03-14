@@ -2,12 +2,16 @@
 
 {% block content %}
 
-<h1>Edit Account</h1>
 
-<form action="{% url 'edit-account' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Submit">
-</form>
+<div class="container">
+    <h1>Edit Account</h1>
+    <form action="{% url 'edit-account' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+
 
 {% endblock content %} 

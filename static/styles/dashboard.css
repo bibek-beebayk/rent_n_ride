@@ -34,7 +34,7 @@
 }
 button{
     background: #17a2b8;
-    color: #fff;
+    color: white;
     float: right;
     margin: 12px;
     font-weight: 600;
@@ -42,8 +42,9 @@ button{
     padding: 5px;
     border-radius: 5px;
 }
- button i{
+ button a{
     margin: 2px;
+    color: white;
 }
  button:hover{
     background: #138496;

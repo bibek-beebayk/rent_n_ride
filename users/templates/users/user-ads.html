@@ -1,0 +1,56 @@
+{% extends 'account_main.html' %}
+
+{% block content %}
+
+<header>
+    <div class="row">
+        <div class="menu_bar col-md-3">
+            <a href="{% url 'index' %}">
+                <h4>RENT N' RIDE</h4>
+            </a>
+            <ul>
+                <li> <a href="{% url 'account' %}">User dashboard</a></li>
+                <li> <a href="{% url 'user-ads' %}">My Ads</a></li>
+                <li> <a href="{% url 'user-requests' %}">My Requests</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <div class="content_bar">
+                <div class="post_title col-md-9">
+                    <h2>Your Ads</h2>
+                </div>
+                <div class="add_btn col-md-3">
+                    <button><a href="{% url 'create-ad' %}"><i class="fa fa-plus"></i>Create New Ad</button></a>
+                </div>
+            </div>
+
+            <div class="list_table">
+                <table class="table table-striped" border="0">
+                    <tr>
+                        <th>Ad Title</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for ad in ads %}
+                    <tr>
+                        <td>{{ad.ad_title}}</td>
+                        <td>{{ad.vehicle_type}}</td>
+                        <td>{{ ad.location }}</td>
+                        <td>Rs. {{ ad.asking_price }}</td>
+
+                        <td><a href="{% url 'ad-details' ad.id %}"><i class="fa fa-eye"></i></a>
+                            <a href="{% url 'update-ad' ad.id %}"><i class="fa fa-edit"></i></a>
+                            <a href="{% url 'delete-ad' ad.id %}"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock content %}

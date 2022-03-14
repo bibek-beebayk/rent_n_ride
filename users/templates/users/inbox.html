@@ -2,6 +2,44 @@
 {% load static %}
 {% block content %}
 
-<h2>Inbox</h2>
+
+<div class="container">
+    <h2>Inbox</h2>
+
+<h3>New Messages: {{ unreadCount }}</h3>
+
+<table class="table table-striped" style="width: 80%;">
+    <tr >
+        <th>Sender</th>
+        <th>Subject</th>
+        <th>Received On</th>
+        <th>Action</th>
+    </tr>
+
+    {% for message in messageRequests %}
+    {% if message.is_read == False %}
+    <tr style="color: green;">
+        <td ><b>{{message.sender}}</b></td>
+        <td><b>{{message.subject}}</b></td>
+        <td><b>{{message.created}}</b></td>
+        <td><b><a href="{% url 'message' message.id %}"><i class="fa fa-eye"></i></b></td>
+
+    </tr>
+    {% else %}
+    <tr>
+        <td>{{message.sender}}</td>
+        <td>{{message.subject}}</td>
+        <td>{{message.created}}</td>
+        <td>
+            <a href="{% url 'message' message.id %}"><i class="fa fa-eye"></i></a>
+            <!-- <a href="{% url 'message' message.id %}"><i class="fa fa-reply"></i></a> -->
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+</div>
+
 
 {% endblock content %}

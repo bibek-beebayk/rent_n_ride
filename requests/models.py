@@ -6,9 +6,18 @@ from users.models import Profile
 # Create your models here.
 
 class Request(models.Model):
+    VEHICLE_CHOICES = [
+        ('C', 'Car'),
+        ('M', 'Motrobike'),
+        ('B', 'Bicycle'),
+        ('S', 'Scooter'),
+        ('O', 'Other')
+    ] 
+
     owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200, null=True)
     location = models.CharField(max_length=200, null=True)
+    vehicle_type = models.CharField(max_length=1, choices=VEHICLE_CHOICES, null=True)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     description= models.TextField(null=True)

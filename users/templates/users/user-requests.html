@@ -1,0 +1,56 @@
+{% extends 'account_main.html' %}
+
+{% block content %}
+
+<header>
+    <div class="row">
+        <div class="menu_bar col-md-3">
+            <a href="{% url 'index' %}">
+                <h4>RENT N' RIDE</h4>
+            </a>
+            <ul>
+                <li> <a href="{% url 'account' %}">User dashboard</a></li>
+                <li> <a href="{% url 'user-ads' %}">My Ads</a></li>
+                <li> <a href="{% url 'user-requests' %}">My Requests</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <div class="content_bar">
+                <div class="post_title col-md-9">
+                    <h2>Your Requests</h2>
+                </div>
+                <div class="add_btn col-md-3">
+                    <button><a href="{% url 'create-request' %}"><i class="fa fa-plus"></i>Create New Request</button></a>
+                </div>
+            </div>
+
+            <div class="list_table">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Request Title</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for request in requests %}
+                    <tr>
+                        <td>{{request.title}}</td>
+                        <td>{{request.vehicle_type}}</td>
+                        <td>{{ request.location }}</td>
+                        <td>Rs. {{ request.offered_price }}</td>
+
+                        <td><a href="{% url 'request-details' request.id %}"><i class="fa fa-eye"></i></a>
+                            <a href="{% url 'update-request' request.id %}"><i class="fa fa-edit"></i></a>
+                            <a href="{% url 'delete-request' request.id %}"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock content %}

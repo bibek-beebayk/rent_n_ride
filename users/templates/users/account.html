@@ -1,120 +1,59 @@
-{% extends 'main.html' %}
+{% extends 'account_main.html' %}
 
 {% block content %}
+</div>
 
-<h1>My Account</h1>
-<img src="{{profile.profile_image.url}}" alt="" style="width: 250px;">
-<h2>{{profile.name}}</h2>
-<p>{{profile.email}}</p>
-<p>{{profile.phone}}</p>
-<p>{{profile.location}}</p>
+<header>
+    <div class="row">
+        <div class="menu_bar col-md-3">
+            <a href="{% url 'index' %}">
+                <h4>RENT N' RIDE</h4>
+            </a>
+            <ul>
+                <li> <a href="{% url 'account' %}">User dashboard</a></li>
+                <li> <a href="{% url 'user-ads' %}">My Ads</a></li>
+                <li> <a href="{% url 'user-requests' %}">My Requests</a></li>
+            </ul>
+        </div>
 
-<p><a href="{% url 'edit-account' %}">Edit Account Info</a></p>
-
-<div>
-    <h3>My Ads</h3>
-    <a href="{% url 'create-ad' %}">Create New Ad</a>
-    <table border="1px">
-        <tr>
-            <th>Ad Title</th>
-            <th>Price Per Day</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-
-        {% for ad in ads %}
-
-        <tr>
-            <td>{{ad.ad_title}}</td>
-            <td>{{ad.asking_price}}</td>
-            <td><a href="{% url 'ad-details' ad.id %}">View</a> </td>
-            <td><a href="{% url 'update-ad' ad.id %}">Edit</a> </td>
-            <td><a href="{% url 'delete-ad' ad.id %}">Delete</a> </td>
-        </tr>
-
-        {% endfor %}
-    </table>
-
-    <div>
-        <h3>My Requests</h3>
-        <a href="{% url 'create-request' %}">Create New Request</a>
-        <table border="1px">
-            <tr>
-                <th>Request Title</th>
-                <th>Price Per Day</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-
-            {% for request in requests %}
-
-            <tr>
-                <td>{{request.title}}</td>
-                <td>{{request.offered_price}}</td>
-                <td><a href="{% url 'request-details' request.id %}">View</a> </td>
-                <td><a href="{% url 'update-request' request.id %}">Edit</a> </td>
-                <td><a href="{% url 'delete-request' request.id %}">Delete</a> </td>
-            </tr>
-
-            {% endfor %}
-        </table>
-
-
-    </div>
-
-    <header>
-        <div class="row">
-            <div class="menu_bar col-md-3">
-                <a href="{% url 'index' %}"><h4>RENT N' RIDE</h4></a>
-                <ul> 
-                    <li> <a href="#user">User dashboard</a></li>
-                    <li> <a href="#post_ad">Post Ad</a></li>
-                    <li> <a href="#browse_ad">Request Rides</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-9">
-                <div class="profile_bar">
+        <div class="col-md-9">
+            <div class="profile_bar">
                 <div class="profile-image">
                     <img src="{{profile.profile_image.url}}" alt="">
-                 
+
 
                 </div>
 
                 <div class="user_detail">
 
-                <div class="user_info col-md-6">
-                    
-                    <ul>
-                        <li><strong>Name:</strong><span>{{profile.name}}</span></li>
-                        <li><strong>Contact no:</strong><span>{{profile.phone}}</span></li>
-                        <li><strong>Date of Birth:</strong><span>{{profile.date_of_birth}}</span></li>
-                        <li><strong>Address:</strong><span>{{profile.location}}</span></li>
-                    </ul>
-                    
-                </div>
-                <div class="user-detail col-md-6">
-                    
-                    <ul>
-                        <li><strong>Email:</strong><span>rajakumaricom.np</span></li>
-                        <li><strong>Gender:</strong><span>
-                            {{profile.gender}}
-                        
-                        </span></li>
-                        <li><strong>Province:</strong><span>Bagmati</span></li>
-                        <li><strong>City:</strong><span>Tamghas</span></li>
-                    </ul>
-                </div>
-                
-            </div>
-            <button class=""><i class="fa fa-edit"></i><a href="{% url 'edit-account' %}">Edit Details</a>
-                </button>
-                
-            </div>
-        </div>
-        </div>
-	</header>
+                    <div class="user_info col-md-6">
 
-    {% endblock content %}
+                        <ul>
+                            <li><strong>Name:</strong><span>{{profile.name}}</span></li>
+                            <li><strong>Contact no:</strong><span>{{profile.phone}}</span></li>
+                            <li><strong>Date of Birth:</strong><span>{{profile.date_of_birth}}</span></li>
+                            <li><strong>Gender:</strong><span>{{profile.gender}}</span></li>
+                            
+                        </ul>
+
+                    </div>
+                    <div class="user-detail col-md-6">
+
+                        <ul>
+                            <li><strong>Email:</strong><span>{{ profile.email }}</span></li>
+                            <li><strong>Address:</strong><span>{{profile.location}}</span></li>
+                            <li><strong>Province:</strong><span>{{profile.province}}</span></li>
+                            <li><strong>City:</strong><span>{{profile.city}}</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <button class=""><i class="fa fa-edit"></i><a href="{% url 'edit-account' %}">Edit Details</a>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock content %}

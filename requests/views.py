@@ -51,7 +51,7 @@ def createRequest(request):
             req = form.save(commit=False)
             req.owner = profile
             form.save()
-            return redirect('account')
+            return redirect('user-requests')
     context = {'form': form}
     return render(request, 'requests/request_form.html', context)
 
@@ -64,7 +64,7 @@ def updateRequest(request, pk):
         form = RequestForm(request.POST, request.FILES, instance=req)
         if form.is_valid():
             form.save()
-            return redirect('account')
+            return redirect('user-requests')
     context = {'form': form}
     return render(request, 'requests/request_form.html', context)
 
@@ -74,6 +74,6 @@ def deleteRequest(request, pk):
     req = profile.request_set.get(id=pk)
     if request.method == 'POST':
         req.delete()
-        return redirect('account')
+        return redirect('user-requests')
     context = {'object': req}
     return render(request, 'ads/delete_template.html', context)

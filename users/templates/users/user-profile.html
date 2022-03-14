@@ -2,12 +2,6 @@
 
 {% block content %}
 
-
-
-
-
-
-
 <div class="row gutters-sm">
     <div class="col-md-4 mb-3">
         <div class="profile-card">
@@ -18,7 +12,7 @@
                         <h4>{{profile.username}}</h4>
 
                         <p class="text-muted font-size-sm">{{profile.location}}</p>
-                        <button class="btn btn-primary">Message</button>
+                        <button class="btn btn-primary"><a href="{% url 'create-message' profile.id %}">Message</a> </button>
 
                     </div>
                 </div>
@@ -127,7 +121,7 @@
                     </div>
                 </div>
                 <hr>
-                
+
             </div>
         </div>
 
@@ -215,12 +209,12 @@
                 <br>
                 <price>{{ad.asking_price}}</price> per day
                 <br>
-                <button style="margin: 5px; padding: 5px;"><a
-                        href="{% url 'ad-details' ad.id %}">View Details</a> </button>
+                <button style="margin: 5px; padding: 5px;"><a href="{% url 'ad-details' ad.id %}">View Details</a>
+                </button>
 
             </div>
         </div>
-        
+
         {% endfor %}
     </div>
 
@@ -238,12 +232,12 @@
                 <br>
                 <price>{{request.offered_price}}</price> per day
                 <br>
-                <button style="margin: 5px; padding: 5px;"><a
-                        href="{% url 'request-details' request.id %}">View Details</a> </button>
+                <button style="margin: 5px; padding: 5px;"><a href="{% url 'request-details' request.id %}">View
+                        Details</a> </button>
 
             </div>
         </div>
-        
+
         {% endfor %}
     </div>
 
