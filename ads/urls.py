@@ -9,5 +9,7 @@ urlpatterns = [
     path('create-ad/', views.createAd, name='create-ad'),
     path('update-ad/<str:pk>/', views.updateAd, name='update-ad'),
     path('delete-ad/<str:pk>/', views.deleteAd, name='delete-ad'),
+    path('nearby-ads/', views.nearbyAd, name='nearby-ads'),
+    path('compare-ads/', views.compareAds, name='compare-ads'),
 
 ]

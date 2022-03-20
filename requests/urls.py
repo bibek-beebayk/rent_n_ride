@@ -8,5 +8,6 @@ urlpatterns = [
     path('create-request/', views.createRequest, name='create-request'),
     path('update-request/<str:pk>/', views.updateRequest, name='update-request'),
     path('delete-request/<str:pk>/', views.deleteRequest, name='delete-request'),
+    path('nearby-requests/', views.nearbyRequests, name='nearby-requests'),
 
 ]

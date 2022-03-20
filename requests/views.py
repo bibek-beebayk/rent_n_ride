@@ -41,6 +41,12 @@ def request_details(request, pk):
     context = {'request': req}
     return render(request, 'requests/request-details.html', context)
 
+def nearbyRequests(request):
+
+    # rmaining to implement
+
+    return render(request, 'requests/nearby-requests.html')
+
 @login_required(login_url='login')
 def createRequest(request):
     profile = request.user.profile

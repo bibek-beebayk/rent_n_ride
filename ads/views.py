@@ -63,6 +63,17 @@ def ad_details(request, pk):
     context = {'ad': ad, 'form': form, 'count':count, 'average':average }
     return render(request, 'ads/ad-details.html', context)
 
+def nearbyAd(request):
+
+    # remaining implementation
+
+    return render(request, 'ads/nearby-ads.html')
+
+def compareAds(request):
+    # remaining implementation
+
+    return render(request, 'ads/compare-ads.html')
+
 @login_required(login_url='login')
 def createAd(request):
     profile = request.user.profile
@@ -76,6 +87,7 @@ def createAd(request):
             return redirect('user-ads')
     context = {'form': form}
     return render(request, 'ads/ad_form.html', context)
+    
 
 @login_required(login_url='login')
 def updateAd(request, pk):
