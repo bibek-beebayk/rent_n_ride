@@ -1,4 +1,4 @@
-{% include 'main.html' %}
+{% extends 'main.html' %}
 
 {% block content %}
 
@@ -25,6 +25,9 @@
     </div>
     {% endfor %}
     <br>
-    <a href="{% url 'ads-archive' %}"><h4>See All Ads</h4></a>
+    <div style="margin-top: 20px;">
+        That's all we can recommend right now. For more ads, <a href="{% url 'ads-archive' %}"><h4>See All Ads</h4></a>
+
+    </div>
 </div>
 {% endblock content %}

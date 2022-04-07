@@ -13,7 +13,7 @@ def generate_csv():
             csv_writer.writerows(cursor)
 
         dirpath = os.getcwd() + '/ratings.csv'
-        print ("Data exported Successfully into {}".format(dirpath))
+        # print ("Data exported Successfully into {}".format(dirpath))
 
     except Error as e:
         print(e)
