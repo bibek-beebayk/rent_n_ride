@@ -9,6 +9,9 @@
 .menu_bar h4{
    text-align: center;
    padding: 10px;
+   color: #fff;
+   font-weight: 600;
+   border-bottom: 2px solid #ddd;
 }
 .menu_bar ul{
     list-style: none;
@@ -20,6 +23,9 @@
     border-bottom: 0.5px solid #2a2a44;
     padding: 10px;
     font-size: 20px;
+}
+.menu_bar ul li a{
+    color: #fff;
 }
 .menu_bar ul li a:hover{
     text-decoration: none;

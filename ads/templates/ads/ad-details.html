@@ -2,134 +2,142 @@
 {% load static %}
 {% block content %}
 
-<div class="container">
-    <h1>{{ad.ad_title}}</h1>
-    <div class="container">
-        <div class="row single-product-wrapper">
-            <div class="col-md-4 product-img">
-                <img src="{{ad.featured_image.url }}" alt="">
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap.min.css' %}">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body style="background-color: #fff4f4;">
+        <div class="container">
+            <div class="container">
+                <div class="row single-product-wrapper">
+                    <h1>{{ad.ad_title}}</h1>
+                    <div class="col-md-4 product-img">
+                        <img src="{{ad.featured_image.url }}" alt="">
+                    </div>
+                    <div class="col-md-5 product-description">
+                        <h1>{{ad.title}}</h1>
+                        <h3>Description</h3>
+                        <p>
+                            {% if ad.description %}
+                            {{ad.description}}</p>
+                        {% else %}
+                        No description available.
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 product-detail" style="margin-top: 20px;">
+                        <h3> Details</h3><br>
+        
+                        <h4>Posted By: <a href="{% url 'user-profile' ad.owner.id %}">{{ ad.owner }}</a></span></h4>
+                        <h4>Vehicle Type:
+                            {% if ad.vehicle_type is 'B' %}
+                            Bicycle
+                            {% elif ad.vehicle_type is 'M' %}
+                            Motorbike
+                            {% elif ad.vehicle_type is 'C' %}
+                            Car
+                            {%elif ad.vehicle_type is 'S' %}
+                            Scooter
+                            {% else %}
+                            Other
+                            {% endif %}
+                        </span></h4>
+                        <h4>Make:&nbsp<span>{{ad.vehicle_make}}</span></h4>
+                        <h4>Model:&nbsp<span>{{ad.model}}</span></h4>
+        
+                        <h4>Price Per day:&nbsp Rs.<span id="pp">{{ad.asking_price}}</span></h4>
+                        <div class="button_replace"><a  href="{% url 'user-profile' ad.owner.id %}">Contact Owner</a></div>
+                    </div>
+                </div>
+        
             </div>
-            <div class="col-md-5 product-description">
-                <h1>{{ad.title}}</h1>
-                <h3>Description</h3>
-                <p>
-                    {% if ad.description %}
-                    {{ad.description}}</p>
+        
+            <div class="container leave_review">
+                {% if request.ad in request.user.adreview_set %}
+                <h3>You have already submitted your review.</h3>
                 {% else %}
-                No description available.
+                <h2>Leave a Review</h2>
+                <div class="form-group">
+                    <form action="{% url 'ad-details' ad.id %}" method="POST">
+                        {% csrf_token %}
+                        <br>
+                        <div class="r_wright"> <h5>Wrtie a review:</h5> {{form.review_text}}</div>
+                        <br>
+                        Give a rating: {{form.review_rating}}
+                        <br>
+                        <button class="r_submit" onclick="" style="float: left;">Submit</button>
+                        <br>
+                    </form>
+                </div>
+        
                 {% endif %}
+        
             </div>
-            <div class="col-md-3 product-detail">
-                <h1> Details</h1><br>
-
-                <h4>Posted By: <a href="{% url 'user-profile' ad.owner.id %}">{{ ad.owner }}</a></span></h4>
-                <h4>Vehicle Type: 
-                    {% if ad.vehicle_type is 'B' %}
-                    Bicycle
-                    {% elif ad.vehicle_type is 'M' %}
-                    Motorbike
-                    {% elif ad.vehicle_type is 'C' %}
-                    Car
-                    {%elif ad.vehicle_type is 'S' %}
-                    Scooter
-                    {% else %}
-                    Other
-                    {% endif %}
-                </span></h4>
-                <h4>Make:&nbsp<span>{{ad.vehicle_make}}</span></h4>
-                <h4>Model:&nbsp<span>{{ad.model}}</span></h4>
-
-                <h4>Price Per day:&nbsp Rs.<span id="pp">{{ad.asking_price}}</span></h4>
-                <button type="submit" onclick=""><a href="{% url 'user-profile' ad.owner.id %}">Contact Owner</a>
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="container" style="border: 1px solid black;">
-        {% if request.ad in request.user.adreview_set %}
-        <h3>You have already submitted your review.</h3>
-        {% else %}
-        <h2>Leave a Review</h2>
-        <div class="form-group">
-            <form action="{% url 'ad-details' ad.id %}" method="POST">
-                {% csrf_token %}
-                <br>
-                Write your Review: {{form.review_text}}
-                <br>
-                Give a rating: {{form.review_rating}}
-                <br>
-
-                <button type="submit" onclick="" style="float: left;">Submit</button>
-                <br>
-            </form>
-        </div>
-
-        {% endif %}
-
-    </div>
-
-    <br>
-    <div class="container" style="border: 1px solid black;">
-        <h2>Reviews and Ratings</h2>
-        <div style="border: 1px solid blue;">
-            <h3>Total Ratings: {{count}}</h3>
-            <h3>Average Rating: {{average}}/5</h3>
-        </div>
-        <hr>
-        <div>
-            <h4><b>User Reviews and Ratings</b></h4>
-            <hr>
-            {% for review in ad.adreview_set.all %}
-            <div class="flex-container">
-                
+        
+            <br>
+            <div class="review_wrap container">
+                <h2>Reviews and Ratings</h2>
+                <div class="total_rate">
+                    <h3>Total Ratings: {{count}}</h3>
+                    <h3>Average Rating: {{average}}/5</h3>
+                </div>
+                <hr>
                 <div>
-                    <img src="{{review.user.profile_image.url}}" alt="" style="width: 100px;"><br>
+                    <h4><b>User Reviews and Ratings</b></h4>
+                    <hr>
+                    {% for review in ad.adreview_set.all %}
+                    <div class="flex-container">
+        
+                        <div>
+                            <img src="{{review.user.profile_image.url}}" alt="" style="width: 100px;"><br>
+                            <b>{{ review.user }}</b>
+                        </div>
+        
+                        <div>
+                            <b>Rating: {{ review.review_rating }}/5</b>
+                        </div>
+                        <div>
+                            {% if review.review_text %}
+                            <p>Review: {{ review.review_text }}</p>
+                            {% else %}
+                            <p>The user has not left a review.</p>
+                            {% endif %}
+                        </div>
+        
+        
+                        <!-- <p>Rating Stars: </p>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>-->
+                        <br>
+                        <hr>
+        
+                    </div>
+                    {% endfor %}
+        
+                </div>
+        
+        
+            </div>
+            <div class="review-container" style="display: flex;">
+                <div class="user-info">
+                    <img src="{{review.user.profile_image.url}}" alt="">
                     <b>{{ review.user }}</b>
                 </div>
-
-                <div>
-                    <b>Rating: {{ review.review_rating }}/5</b>
+                <div class="rating">
+        
                 </div>
-                <div>
-                    {% if review.review_text %}
-                    <p>Review: {{ review.review_text }}</p>
-                    {% else %}
-                    <p>The user has not left a review.</p>
-                    {% endif %}
+                <div class="review_text">
+        
                 </div>
-
-
-                <!-- <p>Rating Stars: </p>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star"></span>
-    <span class="fa fa-star"></span>-->
-                <br>
-                <hr>
-                
             </div>
-            {% endfor %}
-
         </div>
 
-
-    </div>
-    <div class="review-container" style="display: flex;">
-        <div class="user-info">
-            <img src="{{review.user.profile_image.url}}" alt="">
-            <b>{{ review.user }}</b>
-        </div>
-        <div class="rating">
-
-        </div>
-        <div class="review_text">
-
-        </div>
-    </div>
-</div>
+        <script src="bootstrap.min.js"></script>
+    </body>
+</html>
 
 
 
