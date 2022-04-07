@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 # import sklearn
 from sklearn.decomposition import TruncatedSVD
-from csv_generator import generate_csv
+from scripts.csv_generator import generate_csv
 # import matplotlib.pyplot as plt
 # from surprise import  Reader, Dataset, KNNBasic, KNNWithMeans
 # import surprise
