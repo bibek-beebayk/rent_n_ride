@@ -124,11 +124,16 @@ def inbox(request):
 @login_required(login_url='login')
 def viewMessage(request, pk):  
     profile = request.user.profile
-    message = profile.messages.get(id=pk)  
+    message = profile.messages.get(id=pk)
+    sender_id = None
+    try:
+        sender_id = message.sender.id
+    except:
+        pass
     if message.is_read == False:
         message.is_read = True
         message.save()
-    context = {'message': message}
+    context = {'message': message, 'sender':sender_id}
     return render(request, 'users/message.html', context)
 
 def createMessage(request, pk):

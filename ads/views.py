@@ -6,13 +6,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import csv
 from .forms import AdForm, AdReviewForm, AdSearchForm
 from .models import Ad, AdReview
 from requests.models import Request
-from scripts.recommend import recommend_ads
+from scripts.recommend import popular_ads, recommend_ads
 import uuid
 
 # Create your views here.
@@ -44,10 +44,19 @@ def ad(request):
     return render(request, 'ads/ads.html', context)
 
 def ad_details(request, pk):
+    # print(vars(request._messages))
+    # print (request.user.profile.adreview_set.all())    
+    profile = request.user.profile
     count = 0
     sum = 0
     # average = None
     ad = Ad.objects.get(id=pk)  
+    print('Ad: ', ad.adreview_set.all())
+    print(profile.adreview_set.all())
+    if (ad.id in profile.adreview_set.all()):
+        print('match')
+    else:
+        print('No Match')
     form = AdReviewForm()
     for review in ad.adreview_set.all():
         count+=1
@@ -66,7 +75,7 @@ def ad_details(request, pk):
         # update ad rating
         messages.success(request, 'Your review was submitted successfully.')
         return redirect('ad-details', pk=ad.id) 
-    context = {'ad': ad, 'form': form, 'count':count, 'average':average }
+    context = {'ad': ad, 'form': form, 'count':count, 'average':average , 'profile':profile}
     return render(request, 'ads/ad-details.html', context)
 
 def nearbyAd(request):
@@ -148,7 +157,9 @@ def view_recommendations(request):
 def index(request):
     recent_ads = Ad.objects.all().order_by('-created')[:8]
     recent_requests = Request.objects.all().order_by('-created')[:8]
-    context = {'recent_ads': recent_ads, 'recent_requests':recent_requests}
+    qs = Ad.objects.annotate(review_count=Count('adreview'))
+    popular_ads = qs.order_by('-review_count')[:8]
+    context = {'recent_ads': recent_ads, 'recent_requests':recent_requests, 'popular_ads':popular_ads}
     return render(request, 'ads/index.html', context)
 
 def advanced_search(request):

@@ -48,7 +48,7 @@
     </div>
 
     <div class="container" style="border: 1px solid black;">
-        {% if request.ad in request.user.adreview_set %}
+        {% if ad in profile.adreview_set.all %}
         <h3>You have already submitted your review.</h3>
         {% else %}
         <h2>Leave a Review</h2>

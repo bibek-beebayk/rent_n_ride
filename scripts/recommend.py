@@ -1,7 +1,4 @@
-# from pdb import find_function
-# import matplotlib
-# import os
-# import sqlite3 as sql
+
 from sqlite3 import Error
 import csv
 import pandas as pd
@@ -9,7 +6,7 @@ import pandas as pd
 import numpy as np
 # import sklearn
 from sklearn.decomposition import TruncatedSVD
-from scripts.csv_generator import generate_csv
+from .csv_generator import generate_csv
 # import matplotlib.pyplot as plt
 # from surprise import  Reader, Dataset, KNNBasic, KNNWithMeans
 # import surprise
@@ -28,13 +25,21 @@ from scripts.csv_generator import generate_csv
 # plt.show()
 # print(df.shape)
 
+def popular_ads():
+    generate_csv()
+
+    df = pd.read_csv('ratings.csv')
+    popular_ads = pd.DataFrame(df.groupby('ad_id')['review_rating'].count()).sort_values('review_rating', ascending=False)
+    # ad_ids = popular_ads['ad_id']
+    ad_ids = df['ad_id']
+    print(popular_ads)
+    print(type(ad_ids))
+
 def recommend_ads(aid): 
 
     generate_csv()
 
     df = pd.read_csv('ratings.csv')
-    popular_ads = pd.DataFrame(df.groupby('ad_id')['review_rating'].count()).sort_values('review_rating', ascending=False)
-    # print(popular_ads)
 
     # II
     rating_utility_matrix = df.pivot_table(values='review_rating', index='user_id', columns='ad_id', fill_value=0)
@@ -79,3 +84,5 @@ def recommend_ads(aid):
     # print(type(recommend))
 
     return recommended_ads
+
+popular_ads()

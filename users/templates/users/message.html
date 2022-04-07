@@ -2,12 +2,31 @@
 
 {% block content %}
 
-<h2>Message Details</h2>
-<hr>
-<b>From: {{ message.name }}</b>
-<br>
-<b>Subject: {{ message.subject }}</b>
-<br>
-<br>
-{{message.body|linebreaksbr}}
+<div class="container">
+    <h2>Message Details</h2>
+    <hr>
+    <div>
+        <b>From: {{ message.name }} 
+
+    </div>
+    
+    <br>
+    <div>
+        <b>Subject: {{ message.subject }}</b>
+
+    </div>
+    <br>
+    <div style="font-weight: 100;">
+        <p>{{message.body|linebreaksbr}}
+        </p>
+    </div>
+    <br>
+    {%if sender %}    
+    <a href="{% url 'user-profile' sender %}">View Sender Profile</a> </b>
+    {% else %}
+    <p><i>The sender is not registered.</i></p>
+    {% endif %}
+</div>
+
+
 {% endblock content %}
