@@ -5,7 +5,7 @@ from .models import Profile, Message, UserReview
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['name', 'username', 'gender', 'email', 'phone', 'created']
+    list_display = ['username', 'name', 'gender', 'email', 'phone', 'created']
     list_per_page = 20
     search_fields = ['name__istartswith']
     list_filter = ['created', 'gender']

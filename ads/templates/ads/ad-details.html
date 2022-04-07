@@ -23,8 +23,22 @@
                 <h1> Details</h1><br>
 
                 <h4>Posted By: <a href="{% url 'user-profile' ad.owner.id %}">{{ ad.owner }}</a></span></h4>
-                <h4>Lot No:&nbsp<span>67</span></h4>
-                <h4>Model No:&nbsp<span>2018</span></h4>
+                <h4>Vehicle Type: 
+                    {% if ad.vehicle_type is 'B' %}
+                    Bicycle
+                    {% elif ad.vehicle_type is 'M' %}
+                    Motorbike
+                    {% elif ad.vehicle_type is 'C' %}
+                    Car
+                    {%elif ad.vehicle_type is 'S' %}
+                    Scooter
+                    {% else %}
+                    Other
+                    {% endif %}
+                </span></h4>
+                <h4>Make:&nbsp<span>{{ad.vehicle_make}}</span></h4>
+                <h4>Model:&nbsp<span>{{ad.model}}</span></h4>
+
                 <h4>Price Per day:&nbsp Rs.<span id="pp">{{ad.asking_price}}</span></h4>
                 <button type="submit" onclick=""><a href="{% url 'user-profile' ad.owner.id %}">Contact Owner</a>
                 </button>
@@ -34,6 +48,9 @@
     </div>
 
     <div class="container" style="border: 1px solid black;">
+        {% if request.ad in request.user.adreview_set %}
+        <h3>You have already submitted your review.</h3>
+        {% else %}
         <h2>Leave a Review</h2>
         <div class="form-group">
             <form action="{% url 'ad-details' ad.id %}" method="POST">
@@ -48,6 +65,8 @@
                 <br>
             </form>
         </div>
+
+        {% endif %}
 
     </div>
 

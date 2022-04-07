@@ -71,6 +71,8 @@
         <div class="detail">
             <name>{{ad.ad_title}}</name>
             <br>
+            <location><b>{{ ad.vehicle_make }}</b> {{ ad.model }}</location>
+            <br>
             <location>{{ad.location}}</location>
             <br>
             <price>{{ad.asking_price}}</price> per day
@@ -108,13 +110,13 @@
     <a href="{% url 'requests-archive' %}"><h4>See All Requests</h4></a>
 </div>
 
-<div class="wrapper">
+<!-- <div class="wrapper">
     <a href="{% url 'nearby-ads'  %}"><h4>View Ads Near You</h4></a>>
 </div>
 
 <div class="wrapper">
     <a href="{% url 'nearby-requests'  %}"><h4>View Requests Near You</h4></a>>
-</div>
+</div> -->
 
 <!---->
 

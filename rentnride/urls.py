@@ -23,6 +23,8 @@ from ads.views import ad
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('__debug__/', include('debug_toolbar.urls')),
+
     path('', include('ads.urls')),
     path('requests/', include('requests.urls')),
     path('users/', include('users.urls')),

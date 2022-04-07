@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import RegexValidator
 import uuid
 from users.models import Profile
 # Create your models here.
@@ -32,12 +33,17 @@ class Ad(models.Model):
     vehicle_make = models.ForeignKey(
         VehicleMake, on_delete=models.PROTECT, null=True)
     model = models.CharField(max_length=200, null=True)
+    engine_capacity = models.PositiveSmallIntegerField(verbose_name='Engine capacity in CC', null=True, blank=True)
     distance_travelled = models.DecimalField(
         max_digits=8, decimal_places=2, null=True, blank=True)
     registration_number = models.CharField(
-        max_length=100, null=True, blank=True)
-    available_from = models.DateField(null=True)
-    available_till = models.DateField(null=True)
+        max_length=100,
+        null=True,
+        blank=True,
+        validators= [RegexValidator(r'[a-zA-Z]+([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?-[a-zA-Z]+([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?')],
+        help_text= ("Eg: BA-2-CH-1234"),
+        )
+    is_available = models.BooleanField(default=True)
     location = models.CharField(max_length=200, null=True)
     asking_price = models.DecimalField(
         max_digits=8, decimal_places=2, null=True)

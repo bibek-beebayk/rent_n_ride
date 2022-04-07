@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 
@@ -11,5 +12,8 @@ urlpatterns = [
     path('delete-ad/<str:pk>/', views.deleteAd, name='delete-ad'),
     path('nearby-ads/', views.nearbyAd, name='nearby-ads'),
     path('compare-ads/', views.compareAds, name='compare-ads'),
+    path('advanced-search/', views.advanced_search, name='advanced-search'),
+    path('export/', views.export, name='export'),
+    path('recommendations/', views.view_recommendations, name='recommendations'),
 
 ]

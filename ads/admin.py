@@ -6,8 +6,8 @@ admin.site.index_title = None
 # Register your models here.
 @admin.register(Ad)
 class AdAdmin(admin.ModelAdmin):
-    list_display = ['ad_title', 'owner', 'vehicle_type', 'asking_price', 'created']
-    list_editable = ['asking_price']
+    list_display = ['ad_title', 'owner', 'vehicle_type','vehicle_make', 'model', 'distance_travelled','asking_price', 'is_available', 'location']
+    list_editable = []
     list_per_page = 20
     ordering = ['-created', 'ad_title']
     search_fields = ['ad_title__istartswith']

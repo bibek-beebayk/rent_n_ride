@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Advanced Search</h2>
+    <h3>Please fill the following form to search the vehicle of your choice for rent. Our algorithm will show you all the vehicles that match your description.</h3>
+
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" value="Submit" class="btn btn-success" style="float: left;">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
