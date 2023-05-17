@@ -73,7 +73,6 @@
                 {% endif %}
         
             </div>
-<<<<<<< HEAD
             <div class="col-md-3 product-detail">
                 <h1> Details</h1><br>
 
@@ -139,17 +138,6 @@
             {% for review in ad.adreview_set.all %}
             <div class="flex-container">
                 
-=======
-        
-            <br>
-            <div class="review_wrap container">
-                <h2>Reviews and Ratings</h2>
-                <div class="total_rate">
-                    <h3>Total Ratings: {{count}}</h3>
-                    <h3>Average Rating: {{average}}/5</h3>
-                </div>
-                <hr>
->>>>>>> f24050615d0bbdc9065b221a124199a7d75672a5
                 <div>
                     <h4><b>User Reviews and Ratings</b></h4>
                     <hr>
@@ -201,6 +189,7 @@
         
                 </div>
             </div>
+            {% endfor %}
         </div>
 
         <script src="bootstrap.min.js"></script>
